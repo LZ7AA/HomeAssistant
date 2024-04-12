@@ -1,18 +1,20 @@
-# Hass.io Access Point
+# Hass.io WiFi Access Point
 Use your hass.io host as a WiFi access point - perfect for off-grid and security focused installations.
 
 ## Main features
-- Create a WiFi access point with built-in (Raspberry Pi) or external WiFi (USB) cards (using hostapd)
-- Hidden or visible SSIDs
+- Create a WiFi access point with the built-in (Raspberry Pi) or external WiFi (USB) dongle (using hostapd)
+- Hidden or visible SSID
 - DHCP server (Optional. Uses dnsmasq)
 - MAC address filtering (allow/deny)
 - Internet routing for clients (Optional)
+- Allows for off-grid (stand-alone) AP, without LAN (ethernet) connection
+    Clients are provided with 8.8.8.8 1.1.1.1 DNS in this case. Internet access (Masquarade to default route interface) goes via end0.
 
 
 ## Installation
 
 Please add
-`https://github.com/mattlongman/hassio-access-point` to your hass.io addon repositories list. If you're not sure how, see [instructions](https://www.home-assistant.io/hassio/installing_third_party_addons/) on the Home Assistant website.
+`[(https://github.com/LZ7AA/HomeAssistant.git)]` to your hass.io addon repositories list. If you're not sure how, see [instructions](https://www.home-assistant.io/hassio/installing_third_party_addons/) on the Home Assistant website.
 
 ## Config
 
@@ -23,7 +25,7 @@ Please add
 - **address** (**required**): The address of your hass.io WiFi card/network
 - **netmask** (**required**): Subnet mask of the network
 - **broadcast** (**required**): Broadcast address of the network
-- **interface** (_optional_): Which wlan card to use. Default: wlan0
+- **interface** (_optional_): Which wlan card to use. Default: **wlan0**
 - **hide_ssid** (_optional_): Whether SSID is visible or hidden. 0 = visible, 1 = hidden. Defaults to visible
 - **dhcp** (_optional_): Enable or disable DHCP server. 0 = disable, 1 = enable. Defaults to disabled
 - **dhcp_start_addr** (_optional_): Start address for DHCP range. Required if DHCP enabled
@@ -33,7 +35,9 @@ Please add
 - **debug** (_optional_): Set logging level. 0 = basic output, 1 = show addon detail, 2 = same as 1 plus run hostapd in debug mode
 - **hostapd_config_override** (_optional_): List of hostapd config options to add to hostapd.conf (can be used to override existing options)
 - **client_internet_access** (_optional_): Provide internet access for clients. 1 = enable
+- **default_interface** (_optional_): The LAN network interface to use as fallback to masqarade the WiFi AP to. On a Raspberry Pi (HAOS), the default ethernet is end0.
 - **client_dns_override** (_optional_): Specify list of DNS servers for clients. Requires DHCP to be enabled. Note: Add-on will try to use DNS servers of the parent host by default.
+        The (_off-grid_) use case uses 8.8.8.8 1.1.1.1 DNS by default.
 - **dnsmasq_config_override** (_optional_): List of dnsmasq config options to add to dnsmasq.conf (can be used to override existing options, as well as reserving IPs, e.g. `dhcp-host=12:34:56:78:90:AB,192.168.99.123`)
 
 Note: use either allow or deny lists for MAC filtering. If using allow, deny will be ignored.
@@ -57,6 +61,7 @@ Note: use either allow or deny lists for MAC filtering. If using allow, deny wil
     "debug": "0",
     "hostapd_config_override": [],
     "client_internet_access": '1',
+    "default_interface": 'end0'
     "client_dns_override": ['1.1.1.1', '8.8.8.8']
 ```
 
