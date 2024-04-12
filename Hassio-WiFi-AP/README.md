@@ -7,7 +7,7 @@ Use your hass.io host as a WiFi access point - perfect for off-grid and security
 - DHCP server (Optional. Uses dnsmasq)
 - MAC address filtering (allow/deny)
 - Internet routing for clients (Optional)
-- Allows for off-grid (stand-alone) AP, without LAN (ethernet) connection
+- Allows for off-grid (stand-alone) AP, without LAN (ethernet) connection.\n
     Clients are provided with 8.8.8.8 1.1.1.1 DNS in this case. Internet access (Masquarade to default route interface) goes via end0.
 
 
@@ -61,7 +61,7 @@ Note: use either allow or deny lists for MAC filtering. If using allow, deny wil
     "debug": "0",
     "hostapd_config_override": [],
     "client_internet_access": '1',
-    "default_interface": 'end0'
+    "default_interface": 'end0',
     "client_dns_override": ['1.1.1.1', '8.8.8.8']
 ```
 
