@@ -1,0 +1,7 @@
+---
+channel: stable
+addons:
+  portable-AP:
+    repository: LZ7AA/HomeAssistant/Hassio-WiFi-portable-AP
+    target: portable-AP
+    image: ghcr.io/haberda/nextcloud/{arch}
